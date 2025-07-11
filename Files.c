@@ -1,5 +1,5 @@
 #include<stdio.h> 
-#include"graph.c"
+#include"graph.h"
 #define MAX_STRING 100
 void readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 	FILE* input = fopen(fileName, "r");
@@ -158,17 +158,4 @@ void Output4(char* fileName, Graph graph) {
 		fprintf(output, "\n");
 	}
 	fclose(output);
-}
-
-int main() {
-	char fileName[100];
-	char line[MAX_VERTICES][1000];
-	Graph graph;
-	printf("Enter Filename: ");
-	scanf("%s", fileName);
-	readInputFile(fileName, &graph, line);
-	Output1(fileName, graph);
-	Output2(fileName, graph);
-	Output3(fileName, graph, line);
-	Output4(fileName, graph);
 }

@@ -1,14 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define MAX_VERTICES 20
-typedef struct {
-	int numOfVertices;
-	int numOfEdges;
-	int indexOfRow;
-	int adjacencyMatrix[MAX_VERTICES][MAX_VERTICES];
-	char vertices[MAX_VERTICES][100];
-} Graph;
+#include "graph.h"
 
 void sortAlphabetically(Graph graph, char order[][100]) {
 	char temp[100];
@@ -77,19 +70,6 @@ void computeNumOfEdges(Graph* graph) {
 	num/=2;
 	graph->numOfEdges = num;
 }
-
-
-/*
-int main() {
-	Graph graph;
-	createGraph(&graph, 4);
-	addVertex(&graph, "Bruce");
-	addVertex(&graph, "Diana");
-	addVertex(&graph, "Hal");
-	addVertex(&graph, "Clark");
-	updateMatrix(&graph, "Diana", "Bruce");
-}
-*/
 
 
 
