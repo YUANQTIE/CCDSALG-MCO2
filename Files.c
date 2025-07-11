@@ -1,5 +1,6 @@
 #include<stdio.h> 
 #include"graph.h"
+#include"files.h"
 #define MAX_STRING 100
 void readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 	FILE* input = fopen(fileName, "r");
