@@ -160,3 +160,58 @@ void Output4(char* fileName, Graph graph) {
 	}
 	fclose(output);
 }
+
+void Output7(char* fileName, char* fileName1, char* fileName2, Graph graph1, Graph graph2) {
+	int ctrVertex = 0;
+	int ctrEdge = 0;
+	char outputFileName[100];
+	char sort[MAX_VERTICES][100];
+	for(int i=0; i<graph2.numOfVertices; i++) {
+		strcpy(sort[i], graph2.vertices[i]);
+	}
+	sortAlphabetically(graph2, sort);
+	strcpy(outputFileName, fileName);
+	int len = strlen(outputFileName);
+	outputFileName[len-4] = '\0';
+	len = strlen(fileName1);
+	fileName1[len-4] = '\0';
+	len = strlen(fileName2);
+	fileName2[len-4] = '\0';
+	strcat(outputFileName, "-SUBGRAPH.txt");
+	FILE* output = fopen(outputFileName, "w");
+	//Check vertices
+	for(int i=0; i<graph2.numOfVertices; i++) {
+		printf("%s\n", sort[i]);
+	}
+	for(int i=0; i<graph2.numOfVertices; i++) {
+		if(checkVertex(graph1, sort[i])==1) {
+			fprintf(output, "%s +", sort[i]);
+			ctrVertex++;
+		}
+		else
+			fprintf(output, "%s -", sort[i]);
+			
+	fprintf(output, "\n");
+	}
+	//Check Edges
+	getEdges(&graph1);
+	getEdges(&graph2);
+	for(int i=0; i<graph2.numOfEdges; i++) {
+		if(checkEdge(graph1, graph2.edges[i]) == 1) {
+			fprintf(output, "%s +", graph2.edges[i]);
+			ctrEdge++;
+		}
+		else
+			fprintf(output, "%s -", graph2.edges[i]);
+			
+		fprintf(output, "\n");
+	}
+	
+	if(ctrVertex == graph2.numOfVertices && ctrEdge == graph2.numOfEdges) {
+		fprintf(output, "%s is a subgraph of %s.", fileName2, fileName1);
+	}
+	else
+		fprintf(output, "%s is not a subgraph of %s.", fileName2, fileName1);
+		
+	fclose(output);
+}
