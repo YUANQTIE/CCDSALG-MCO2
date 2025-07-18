@@ -17,14 +17,15 @@ void sortAlphabetically(Graph graph, char order[][100]) {
 }
 
 int findVertexID(Graph graph, char* vertex) {
+	int flag = -1;
 	int numOfVertices = graph.numOfVertices;
 	int i;
 	for(i=0; i<numOfVertices; i++) {
 		if(strcmp(graph.vertices[i], vertex) == 0) {
-			return i;
+			flag = i;
 		}
 	}
-	return -1;
+	return flag;
 }
 
 void addVertex(Graph* graph, char* vertex) {
@@ -127,10 +128,3 @@ void createGraph(Graph* graph, int numOfVertices) {
 		}
 	}
 }
-
-
-
-
-
-
-

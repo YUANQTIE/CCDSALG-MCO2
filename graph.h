@@ -22,5 +22,6 @@ void computeNumOfEdges(Graph* graph);
 int checkVertex(Graph graph1, char* vertex);
 void getEdges(Graph* graph);
 int checkEdge(Graph graph1, char* edge); 
+int getIndex(Graph graph, char* name);
 
 #endif

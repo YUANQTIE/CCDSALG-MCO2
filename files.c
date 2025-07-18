@@ -1,16 +1,18 @@
 #include<stdio.h> 
-#include"graph.h"
 #include"files.h"
+
 #define MAX_STRING 100
-void readInputFile(char* fileName, Graph* graph, char line[][1000]) {
+int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 	FILE* input = fopen(fileName, "r");
 	int ctr=0;
 	int temp;
 	int first;
 	char oneLine[1000];
 	char firstVertex[MAX_STRING];
+	int flag;
 	if(input == NULL) {
 		printf("File %s not found.", fileName);
+		flag = 0;
 	}
 	else {
 		fscanf(input, "%d\n", &(graph)->numOfVertices);
@@ -44,9 +46,14 @@ void readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 			}
 			ctr++;
 		}
+		computeNumOfEdges(graph);
+		flag = 1;
 	}
-	computeNumOfEdges(graph);
+
+	return flag;
+
 }
+
 
 void Output1(char* fileName, Graph graph) {
 	int ctr = 0;
@@ -160,6 +167,57 @@ void Output4(char* fileName, Graph graph) {
 	}
 	fclose(output);
 }
+
+void Output5(char* fileName, Graph graph, char start[100]) {
+	char outputFileName[100];
+	strcpy(outputFileName, fileName);
+	int len = strlen(outputFileName);
+	outputFileName[len-4] = '\0';
+	strcat(outputFileName, "-BFS.txt");
+	FILE* output = fopen(outputFileName, "w");
+	char bfsvertices[graph.numOfVertices][100];
+	int startIndex = findVertexID(graph, start);
+	int checkedVertices[graph.numOfVertices];
+	Queue queue;
+	Create(&queue);
+	for (int i = 0; i < graph.numOfVertices; i++)
+	{
+		checkedVertices[i] = 0;
+	}
+	int i = 0;
+
+	checkedVertices[startIndex] = 1;
+	Enqueue(&queue, start);
+
+	while (!QueueEmpty(&queue)) //if all of queue elements have been added to the final BFs list, the loop terminates.
+	{
+		char* readInput = QueueHead(&queue);
+		strcpy(bfsvertices[i], Dequeue(&queue)); //copies the queue element to the final BFS list.
+		i++;
+        int readIndex = findVertexID(graph, readInput);
+		for (int j = 0; j < graph.numOfVertices; j++)
+		{
+			if (!checkedVertices[j] && graph.adjacencyMatrix[readIndex][j] && !QueueFull(&queue)) //checks if vertex has already added and if the vertex is connected to the vertex at the head of the queue.
+			{
+				checkedVertices[j] = 1;
+				Enqueue(&queue, graph.vertices[j]); 
+			}
+
+		}
+	}
+
+	for (int i = 0; i < graph.numOfVertices - 1; i++)
+	{
+		fprintf(output, "%s ", bfsvertices[i]);
+	}
+
+	fprintf(output, "%s", bfsvertices[graph.numOfVertices - 1]);
+
+	fclose(output);
+}
+
+
+
 
 void Output7(char* fileName, char* fileName1, char* fileName2, Graph graph1, Graph graph2) {
 	int ctrVertex = 0;
