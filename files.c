@@ -169,51 +169,59 @@ void Output4(char* fileName, Graph graph) {
 }
 
 void Output5(char* fileName, Graph graph, char start[100]) {
-	char outputFileName[100];
-	strcpy(outputFileName, fileName);
-	int len = strlen(outputFileName);
-	outputFileName[len-4] = '\0';
-	strcat(outputFileName, "-BFS.txt");
-	FILE* output = fopen(outputFileName, "w");
-	char bfsvertices[graph.numOfVertices][100];
-	int startIndex = findVertexID(graph, start);
-	int checkedVertices[graph.numOfVertices];
-	Queue queue;
-	Create(&queue);
-	for (int i = 0; i < graph.numOfVertices; i++)
-	{
-		checkedVertices[i] = 0;
-	}
-	int i = 0;
+    char outputFileName[100];
+    strcpy(outputFileName, fileName);
+    int len = strlen(outputFileName);
+    outputFileName[len-4] = '\0';
+    strcat(outputFileName, "-BFS.txt");
+    FILE* output = fopen(outputFileName, "w");
+    char bfsvertices[graph.numOfVertices][100];
+    int checkedVertices[graph.numOfVertices];
+    char sorted[graph.numOfVertices][100];
+    for (int i = 0; i < graph.numOfVertices; i++) 
+    {
+        strcpy(sorted[i], graph.vertices[i]);
+    }
+    sortAlphabetically(graph, sorted);
+    Queue queue;
+    Create(&queue);
+	
+    for (int i = 0; i < graph.numOfVertices; i++) 
+    {
+        checkedVertices[i] = 0;
+    }
+	
+    int startIndex = findVertexID(graph, start);
+    int i = 0;
+    checkedVertices[startIndex] = 1;
+    Enqueue(&queue, start);
 
-	checkedVertices[startIndex] = 1;
-	Enqueue(&queue, start);
-
-	while (!QueueEmpty(&queue)) //if all of queue elements have been added to the final BFs list, the loop terminates.
-	{
-		char* readInput = QueueHead(&queue);
-		strcpy(bfsvertices[i], Dequeue(&queue)); //copies the queue element to the final BFS list.
-		i++;
+    while (!QueueEmpty(&queue)) 
+    { //if all of queue elements have been added to the final BFs list, the loop terminates.
+        char* readInput = QueueHead(&queue);
+        strcpy(bfsvertices[i], Dequeue(&queue)); //copies the queue element to the final BFS list.
+        i++;
         int readIndex = findVertexID(graph, readInput);
-		for (int j = 0; j < graph.numOfVertices; j++)
-		{
-			if (!checkedVertices[j] && graph.adjacencyMatrix[readIndex][j] && !QueueFull(&queue)) //checks if vertex has already added and if the vertex is connected to the vertex at the head of the queue.
-			{
-				checkedVertices[j] = 1;
-				Enqueue(&queue, graph.vertices[j]); 
-			}
-
-		}
-	}
-
-	for (int i = 0; i < graph.numOfVertices - 1; i++)
+	    
+        for (int j = 0; j < graph.numOfVertices; j++) 
 	{
-		fprintf(output, "%s ", bfsvertices[i]);
-	}
+            int connected = findVertexID(graph, sorted[j]); 
+            if (!checkedVertices[connected] && graph.adjacencyMatrix[readIndex][connected] && !QueueFull(&queue)) //checks if vertex has already added and if the vertex is connected to the vertex at the head of the queue.
+	    {
+                checkedVertices[connected] = 1;
+                Enqueue(&queue, sorted[j]);
+            }
+        }
+    }
+	
+    for (int i = 0; i < graph.numOfVertices - 1; i++) 
+    {
+        fprintf(output, "%s ", bfsvertices[i]);
+    }
 
-	fprintf(output, "%s", bfsvertices[graph.numOfVertices - 1]);
+    fprintf(output, "%s", bfsvertices[graph.numOfVertices - 1]);
 
-	fclose(output);
+    fclose(output);
 }
 
 
