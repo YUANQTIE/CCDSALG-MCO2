@@ -205,7 +205,7 @@ void Output5(char* fileName, Graph graph, char start[100]) {
 	    
         for (int j = 0; j < graph.numOfVertices; j++) 
 	{
-            int connected = findVertexID(graph, sorted[j]); 
+            int connected = findVertexID(graph, sorted[j]); //find the vertex ID of a possibly connected vertex from sorted list.
             if (!checkedVertices[connected] && graph.adjacencyMatrix[readIndex][connected] && !QueueFull(&queue)) //checks if vertex has already added and if the vertex is connected to the vertex at the head of the queue.
 	    {
                 checkedVertices[connected] = 1;
