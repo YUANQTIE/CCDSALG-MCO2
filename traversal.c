@@ -21,14 +21,7 @@ void sortAdjacentVerticesAndIndices(char names[][100], int indices[], int count)
 	}
 }
 
-void Output5(char* fileName, Graph graph, char start[100]) {
-    char outputFileName[100];
-    strcpy(outputFileName, fileName);
-    int len = strlen(outputFileName);
-    outputFileName[len-4] = '\0';
-    strcat(outputFileName, "-BFS.txt");
-    FILE* output = fopen(outputFileName, "w");
-    char bfsvertices[graph.numOfVertices][100];
+void BFS(Graph graph, char start[100], char bfsvertices[][100]){
     int checkedVertices[graph.numOfVertices];
     char sorted[graph.numOfVertices][100];
     for (int i = 0; i < graph.numOfVertices; i++) 
@@ -66,25 +59,9 @@ void Output5(char* fileName, Graph graph, char start[100]) {
             }
         }
     }
-	
-    for (int i = 0; i < graph.numOfVertices - 1; i++) 
-    {
-        fprintf(output, "%s ", bfsvertices[i]);
-    }
-
-    fprintf(output, "%s", bfsvertices[graph.numOfVertices - 1]);
-
-    fclose(output);
 }
 
-void Output6(char* fileName, Graph graph, char start[100]) {
-    char outputFileName[100];
-    strcpy(outputFileName, fileName);
-    int len = strlen(outputFileName);
-    outputFileName[len - 4] = '\0';
-    strcat(outputFileName,"-DFS.txt");
-    FILE* output = fopen(outputFileName,"w");
-    char dfsvertices[graph.numOfVertices][100];
+void DFS(Graph graph, char start[100], char dfsvertices[][100]) {
     int visited[graph.numOfVertices];
     int i = 0;
 	int stack[MAX_VERTICES];
@@ -123,11 +100,4 @@ void Output6(char* fileName, Graph graph, char start[100]) {
 			}
         }
     }
-
-    for (int j =0; j< i -1; j++) {
-        fprintf(output,"%s ",dfsvertices[j]);
-    }
-    fprintf(output,"%s",dfsvertices[i - 1]);
-
-    fclose(output);
 }
