@@ -3,7 +3,12 @@
 #include"files.h"
 #include"queue.h"
 
-
+/*Function that sorts adjacent vertex names and their corresponding indices alphabetically.
+  This is typically used before DFS traversal to ensure consistent and ordered visiting of adjacent nodes.
+	@param names   - a 2D array of strings representing the names of adjacent vertices.
+ 	@param indices - an array of integers representing the corresponding indices of the vertices in the graph.
+  	@param count   - the number of adjacent vertices to sort.
+*/
 void sortAdjacentVerticesAndIndices(char names[][100], int indices[], int count) {
     char tempName[100];
     int tempIndex;
@@ -21,6 +26,12 @@ void sortAdjacentVerticesAndIndices(char names[][100], int indices[], int count)
 	}
 }
 
+
+/* Function that performs Breadth-First Search (BFS) traversal on a graph.
+   @param graph - the graph to be traversed
+   @param start - the name of the starting vertex for traversal
+   @param bfsvertices - a 2D array to store the order of visited vertices
+*/
 void BFS(Graph graph, char start[100], char bfsvertices[][100]){
     int checkedVertices[graph.numOfVertices];
     char sorted[graph.numOfVertices][100];
@@ -61,6 +72,11 @@ void BFS(Graph graph, char start[100], char bfsvertices[][100]){
     }
 }
 
+/* Function that performs Depth-First Search (DFS) traversal on a graph.
+   @param graph - the graph to be traversed
+   @param start - the name of the starting vertex for traversal
+   @param dfsvertices - a 2D array to store the order of visited vertices
+*/
 void DFS(Graph graph, char start[100], char dfsvertices[][100]) {
     int visited[graph.numOfVertices];
     int i = 0;
@@ -81,7 +97,7 @@ void DFS(Graph graph, char start[100], char dfsvertices[][100]) {
             strcpy(dfsvertices[i++], graph.vertices[current]);
             
             char adjacentVertices[graph.numOfVertices][100];
-            int adjacentIndices[graph.numOfVertices]; //adjacent indices kasi may stack
+            int adjacentIndices[graph.numOfVertices]; 
             int count = 0;
             
 
@@ -93,7 +109,7 @@ void DFS(Graph graph, char start[100], char dfsvertices[][100]) {
                 }
         	}
         	
-        	sortAdjacentVerticesAndIndices(adjacentVertices, adjacentIndices, count);
+        	sortAdjacentVerticesAndIndices(adjacentVertices, adjacentIndices, count); //Since we're using an array-based tack, we also need to sort the indices
         	
         	for(int j = count-1; j>=0 ; j--){
 				stack[++top] = adjacentIndices[j];
