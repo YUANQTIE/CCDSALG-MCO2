@@ -16,9 +16,9 @@ void sortAdjacentVerticesAndIndices(char names[][100], int indices[], int count)
                 tempIndex = indices[j];
                 indices[j] = indices[j + 1];
                 indices[j + 1] = tempIndex;
-        }
-    }
-}
+        	}	
+    	}
+	}
 }
 
 void Output5(char* fileName, Graph graph, char start[100]) {
