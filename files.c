@@ -1,6 +1,7 @@
 #include<stdio.h> 
 #include"files.h"
 #define MAX_STRING 100
+#include "traversal.h"
 
 /*Function that reads the contents of an input file and stores them in a graph.
     @param fileName- the name of the input file.
