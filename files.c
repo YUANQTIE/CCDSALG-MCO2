@@ -1,7 +1,13 @@
 #include<stdio.h> 
 #include"files.h"
-
 #define MAX_STRING 100
+
+/*Function that reads the contents of an input file and stores them in a graph.
+    @param fileName- the name of the input file.
+    @param graph - where the contents of the file will be stored.
+    @param line - a 2D array which is used to store line by line of the input file
+    @return 1 if successful or -1 if not successful
+*/
 int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 	FILE* input = fopen(fileName, "r");
 	int ctr=0;
@@ -9,7 +15,7 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 	int first;
 	char oneLine[1000];
 	char firstVertex[MAX_STRING];
-	int flag;
+	int flag = -1;
 	//Checks if file exists
 	if(input == NULL) {
 		printf("File %s not found.", fileName);
@@ -58,7 +64,10 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 
 }
 
-
+/*Function that outputs a file detailing the vertices and edges of the graph
+    @param fileName- the name of the output file.
+    @param graph - contains the information
+*/
 void Output1(char* fileName, Graph graph) {
 	int ctr = 0;
 	int original;
@@ -111,6 +120,10 @@ void Output1(char* fileName, Graph graph) {
 	fclose(output);
 }
 
+/*Function that outputs a file detailing the degree of each vertex of a graph
+    @param fileName- the name of the output file.
+    @param graph - contains the information
+*/
 void Output2(char* fileName, Graph graph) {
 	char outputFileName[100];
 	char sort[MAX_VERTICES][100];
@@ -132,6 +145,11 @@ void Output2(char* fileName, Graph graph) {
 	fclose(output);
 }
 
+/*Function that outputs a file containing the adjacency list representation of graph
+    @param fileName- the name of the output file.
+    @param graph - contains the information
+    @param line - a 2D array which contains the line per line contents of the input file
+*/
 void Output3(char* fileName, Graph graph, char line[][1000]) {
 	
 	int first;
@@ -158,6 +176,10 @@ void Output3(char* fileName, Graph graph, char line[][1000]) {
 	fclose(output);
 }
 
+/*Function that outputs a file containing the adjeacency matrix representation of graph
+    @param fileName- the name of the output file.
+    @param graph - contains the information
+*/
 void Output4(char* fileName, Graph graph) {
 	int len;
 	int colWidths[graph.numOfVertices];
@@ -206,6 +228,13 @@ void Output4(char* fileName, Graph graph) {
 }
 
 
+/*Function that outputs a file which determines whether graph2 is a subgraph of graph1
+    @param fileName- the name of the output file.
+    @param fileName1 - the name of the file of the first graph
+    @param fileName2 - the name of the file of the second graph
+    @param graph1 - the first graph
+    @param graph2 - the second graph
+*/
 void Output7(char* fileName, char* fileName1, char* fileName2, Graph graph1, Graph graph2) {
 	int ctrVertex = 0;
 	int ctrEdge = 0;
