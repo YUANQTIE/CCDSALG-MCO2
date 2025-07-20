@@ -29,7 +29,7 @@ int main() {
 		}
 		else{
 			Output5(fileName, graph, startingVertex);
-			//lagay Output6 dito
+			Output6(fileName, graph, startingVertex);
 		}
 	}
 }
