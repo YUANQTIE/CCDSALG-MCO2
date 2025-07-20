@@ -22,7 +22,7 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 		//Obtains the main vertex of each line and adds it to the graph
 		for(int i=0; i<graph->numOfVertices; i++) {
 			if(fgets(oneLine, sizeof(oneLine), input) != NULL) {
-				char* vertex = strtok(oneLine, " ");
+				char* vertex = strtok(oneLine, " \t");
 				strcpy(firstVertex, vertex);
 				addVertex(graph, firstVertex);
 			}
@@ -32,7 +32,7 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 		//Obtains the remaining vertices and adds them to the graph
 		for(int i=0; i<graph->numOfVertices; i++) {
 			if(fgets(oneLine, sizeof(oneLine), input) != NULL) {
-				char* vertex = strtok(oneLine, " ");
+				char* vertex = strtok(oneLine, " \t");
 				strcat(line[ctr], vertex);
 				strcat(line[ctr], " ");
 				strcpy(firstVertex, vertex);
@@ -44,7 +44,7 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 						strcat(line[ctr], vertex);
 						strcat(line[ctr], " ");
 					}
-					vertex = strtok(NULL, " ");
+					vertex = strtok(NULL, " \t");
 					first = 0;
 				}
 			}
@@ -99,7 +99,7 @@ void Output1(char* fileName, Graph graph) {
 				
 				graph.adjacencyMatrix[j][i] = 0;
 				ctr++;
-				//Checks it is the last edge
+				//Checks if last edge
 				if(ctr != graph.numOfEdges){
 					fprintf(output, ",");
 				}
