@@ -3,6 +3,10 @@
 #include <string.h>
 #include "graph.h"
 
+/*Function that sorts the vertices of a graph in alphabetical order.
+    @param graph - contains the vertices.
+    @param order - contains the alphabetically sorted vertices of the graph
+*/
 void sortAlphabetically(Graph graph, char order[][100]) {
 	char temp[100];
 	for(int i=0; i<graph.numOfVertices; i++) {
@@ -16,6 +20,11 @@ void sortAlphabetically(Graph graph, char order[][100]) {
 	}
 }
 
+/*Function that returns the vertex ID of a specific vertex.
+    @param graph - contains the information.
+    @param vertex - the specific vertex
+    @return the vertex ID
+*/
 int findVertexID(Graph graph, char* vertex) {
 	int flag = -1;
 	int numOfVertices = graph.numOfVertices;
@@ -28,6 +37,10 @@ int findVertexID(Graph graph, char* vertex) {
 	return flag;
 }
 
+/*Function that adds a vertex to the graph.
+    @param graph - where the vertex will be added.
+    @param vertex - the vertex to be added
+*/
 void addVertex(Graph* graph, char* vertex) {
 	int indexOfRow = graph->indexOfRow;
 	if(findVertexID(*graph, vertex) == -1) {
@@ -36,14 +49,23 @@ void addVertex(Graph* graph, char* vertex) {
 	}
 }
 
-
-
+/*Function that updates the matrix by indicating an edge between the firstVertex
+  and the adjacentVertex.
+    @param graph - contains the adjacency matrix to be updated.
+    @param firstVertex - a vertex 
+    @param adjacentVertex - a vertex adjacent to the firstVertex
+*/
 void updateMatrix(Graph* graph, char* firstVertex, char* adjacentVertex) {
 	int rowIndex = findVertexID(*graph, firstVertex);
 	int colIndex = findVertexID(*graph, adjacentVertex);
 	graph->adjacencyMatrix[rowIndex][colIndex] = 1;
 }
 
+/*Function that returns the degree of a specific vertex.
+    @param graph - contains the information.
+    @param vertex - the specific vertex
+    @return the degree
+*/
 int getDegree(Graph graph, char* vertex) {
 	int degree = 0;
 	int rowIndex = findVertexID(graph, vertex);
@@ -53,6 +75,10 @@ int getDegree(Graph graph, char* vertex) {
 	return degree;
 }
 
+/*Function that computes the number of edges of a graph and stores the information
+  in the graph.
+    @param graph - contains and stores the information.
+*/
 void computeNumOfEdges(Graph* graph) {
 	int num=0;
 	for(int i=0; i<graph->numOfVertices; i++) {
@@ -62,6 +88,11 @@ void computeNumOfEdges(Graph* graph) {
 	graph->numOfEdges = num;
 }
 
+/*Function that checks if a specific vertex is found in the graph.
+    @param graph1 - contains the information.
+    @param vertex - the specific vertex
+    @return 1 if found otherwise -1
+*/
 int checkVertex(Graph graph1, char* vertex) {
 	for(int i=0; i<graph1.numOfVertices; i++) {
 		if(strcmp(graph1.vertices[i], vertex) == 0) {
@@ -71,6 +102,11 @@ int checkVertex(Graph graph1, char* vertex) {
 	return -1;
 }
 
+/*Function that checks if a specific edge is found in the graph.
+    @param graph1 - contains the information.
+    @param edge - the specific edge
+    @return 1 if found otherwise -1
+*/
 int checkEdge(Graph graph1, char* edge) {
 	for(int i=0; i<graph1.numOfEdges; i++) {
 		if(strcmp(graph1.edges[i], edge) == 0) {
@@ -80,6 +116,9 @@ int checkEdge(Graph graph1, char* edge) {
 	return -1;
 }
 
+/*Function that finds the edges of a graph and stores them in the graph.
+    @param graph - contains and stores the information.
+*/
 void getEdges(Graph* graph) {
 	Graph tempGraph = *graph;
 	char sort[MAX_VERTICES][100];
@@ -119,6 +158,10 @@ void getEdges(Graph* graph) {
 	}
 }
 
+/*Function that creates a graph.
+    @param graph - the graph to be created.
+    @param numOfVertices - the number of vertices of the graph
+*/
 void createGraph(Graph* graph, int numOfVertices) {
 	graph->numOfVertices = numOfVertices;
 	graph->indexOfRow = -1;
