@@ -159,19 +159,49 @@ void Output3(char* fileName, Graph graph, char line[][1000]) {
 }
 
 void Output4(char* fileName, Graph graph) {
+	int len;
+	int colWidths[graph.numOfVertices];
+	int rowWidth = 0;
 	char outputFileName[100];
 	strcpy(outputFileName, fileName);
-	int len = strlen(outputFileName);
+	len = strlen(outputFileName);
 	outputFileName[len-4] = '\0';
 	strcat(outputFileName, "-MATRIX.txt");
 	FILE* output = fopen(outputFileName, "w");
 	for(int i=0; i<graph.numOfVertices; i++) {
-		fprintf(output, "%s ", graph.vertices[i]);
-		for(int j=0; j<graph.numOfVertices; j++) {
-			fprintf(output, "%d ", graph.adjacencyMatrix[i][j]);
+		colWidths[i] = strlen(graph.vertices[i]);
+		colWidths[i] += 3;
+		len = strlen(graph.vertices[i]);
+		if(len > rowWidth) {
+			rowWidth = len;
 		}
-		fprintf(output, "\n");
 	}
+	// Checks how much space should be between rows depending on the longest vertex in terms of character length
+	if(rowWidth > 10) {
+		rowWidth += rowWidth/3;
+	}
+	else if(rowWidth < 10 && rowWidth >= 5){
+		rowWidth += rowWidth/2;
+	}
+	else {
+		rowWidth += rowWidth;
+	}
+	fprintf(output, "%*s", rowWidth, "");
+	//Column Header
+	for(int i=0; i<graph.numOfVertices; i++) {
+		fprintf(output, "%-*s", colWidths[i], graph.vertices[i]);
+	}
+	fprintf(output, "\n");
+	
+	for (int i = 0; i < graph.numOfVertices; i++) {
+		//Row Header
+        fprintf(output, "%-*s", rowWidth, graph.vertices[i]);
+        for (int j = 0; j < graph.numOfVertices; j++) {
+        	//Aligns Per Column Width
+            fprintf(output, "%-*d", colWidths[j], graph.adjacencyMatrix[i][j]);
+        }
+        fprintf(output, "\n");
+    }
 	fclose(output);
 }
 
