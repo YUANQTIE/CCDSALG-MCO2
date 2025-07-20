@@ -3,7 +3,7 @@
 #include "graph.h"
 
 void sortAdjacentVerticesAndIndices(char names[][100], int indices[], int count);
-void Output5(char* fileName, Graph graph, char start[100]); 
-void Output6(char* fileName, Graph graph, char start[100]);
+void BFS(Graph graph, char start[100], char bfsvertices[][100]);
+void DFS(Graph graph, char start[100], char dfsvertices[][100]);
 
 #endif
