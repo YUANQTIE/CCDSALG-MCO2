@@ -246,6 +246,43 @@ void Output4(char* fileName, Graph graph) {
 	fclose(output);
 }
 
+void Output5(char* fileName, Graph graph, char start[100]) {
+    char outputFileName[100];
+    strcpy(outputFileName, fileName);
+    int len = strlen(outputFileName);
+    outputFileName[len-4] = '\0';
+    strcat(outputFileName, "-BFS.txt");
+    FILE* output = fopen(outputFileName, "w");
+
+    char bfsvertices[graph.numOfVertices][100];
+    BFS(graph, start, bfsvertices);
+
+    for (int i = 0; i < graph.numOfVertices - 1; i++) {
+        fprintf(output, "%s ", bfsvertices[i]);
+    }
+    fprintf(output, "%s", bfsvertices[graph.numOfVertices - 1]);
+    fclose(output);
+}
+
+void Output6(char* fileName, Graph graph, char start[100]) {
+    char outputFileName[100];
+    strcpy(outputFileName, fileName);
+    int len = strlen(outputFileName);
+    outputFileName[len - 4] = '\0';
+    strcat(outputFileName,"-DFS.txt");
+    FILE* output = fopen(outputFileName,"w");
+
+    char dfsvertices[graph.numOfVertices][100];
+    DFS(graph, start, dfsvertices);
+
+    for (int j = 0; j < graph.numOfVertices - 1; j++) {
+        fprintf(output, "%s ", dfsvertices[j]);
+    }
+    
+    fprintf(output, "%s", dfsvertices[graph.numOfVertices - 1]);
+    fclose(output);
+}
+
 
 /*Function that outputs a file which determines whether graph2 is a subgraph of graph1
     @param fileName- the name of the output file.
