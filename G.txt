@@ -1,8 +1,7 @@
-5
+4
 Diana    Hal  Bruce Clark -1
 Bruce   Diana  -1
-Hal Clark   Diana  FifteenFif -1
+Hal Clark   Diana  -1
 Clark  Hal   Diana  -1
-FifteenFif   Hal Clark -1
 
 

@@ -1,5 +1,4 @@
 Diana->Hal->Bruce->Clark->\
 Bruce->Diana->\
-Hal->Clark->Diana->FifteenFif->\
+Hal->Clark->Diana->\
 Clark->Hal->Diana->\
-FifteenFif->Hal->Clark->\

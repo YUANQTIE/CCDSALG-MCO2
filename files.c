@@ -125,19 +125,35 @@ void Output1(char* fileName, Graph graph) {
     @param graph - contains the information
 */
 void Output2(char* fileName, Graph graph) {
+	int len;
+	int max = 0;
 	char outputFileName[100];
 	char sort[MAX_VERTICES][100];
 	strcpy(outputFileName, fileName);
-	int len = strlen(outputFileName);
+	len = strlen(outputFileName);
 	outputFileName[len-4] = '\0';
 	strcat(outputFileName, "-DEGREE.txt");
 	FILE* output = fopen(outputFileName, "w");
 	for(int i=0; i<graph.numOfVertices; i++) {
 		strcpy(sort[i], graph.vertices[i]);
+		len = strlen(graph.vertices[i]);
+		if(len > max) {
+			max = len;
+		}
 	}
 	sortAlphabetically(graph, sort);
+	// Checks how much space should be within rows depending on the longest vertex in terms of character length
+	if(max > 10) {
+		max += max/3;
+	}
+	else if(max < 10 && max >= 5){
+		max += max/2;
+	}
+	else {
+		max += max;
+	}
 	for(int i=0; i<graph.numOfVertices; i++) {
-		fprintf(output, "%s   %d", sort[i], getDegree(graph, sort[i]));
+		fprintf(output, "%-*s %d", max, sort[i], getDegree(graph, sort[i]));
 		if(i != graph.numOfVertices-1) {
 			fprintf(output, "\n");
 		}
@@ -151,7 +167,6 @@ void Output2(char* fileName, Graph graph) {
     @param line - a 2D array which contains the line per line contents of the input file
 */
 void Output3(char* fileName, Graph graph, char line[][1000]) {
-	
 	int first;
 	char outputFileName[100];
 	strcpy(outputFileName, fileName);
@@ -171,7 +186,9 @@ void Output3(char* fileName, Graph graph, char line[][1000]) {
 			first = 0;
 		}
 		fprintf(output, "\\");
-		fprintf(output, "\n");
+		if(i != graph.numOfVertices-1) {
+			fprintf(output, "\n");
+		}
 	}
 	fclose(output);
 }
@@ -198,7 +215,7 @@ void Output4(char* fileName, Graph graph) {
 			rowWidth = len;
 		}
 	}
-	// Checks how much space should be between rows depending on the longest vertex in terms of character length
+	// Checks how much space should be within rows depending on the longest vertex in terms of character length
 	if(rowWidth > 10) {
 		rowWidth += rowWidth/3;
 	}
@@ -222,7 +239,9 @@ void Output4(char* fileName, Graph graph) {
         	//Aligns Per Column Width
             fprintf(output, "%-*d", colWidths[j], graph.adjacencyMatrix[i][j]);
         }
-        fprintf(output, "\n");
+        if(i != graph.numOfVertices - 1) {
+        	fprintf(output, "\n");
+		}
     }
 	fclose(output);
 }
