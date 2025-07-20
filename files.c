@@ -247,6 +247,11 @@ void Output4(char* fileName, Graph graph) {
 	fclose(output);
 }
 
+/* Function that writes the result of BFS traversal to an output file.
+   @param fileName - the name of the original input file
+   @param graph - the graph that contains all vertices and edges
+   @param start - the name of the starting vertex for BFS traversal
+*/
 void Output5(char* fileName, Graph graph, char start[100]) {
     char outputFileName[100];
     strcpy(outputFileName, fileName);
@@ -265,6 +270,11 @@ void Output5(char* fileName, Graph graph, char start[100]) {
     fclose(output);
 }
 
+/* Function that writes the result of DFS traversal to an output file.
+   @param fileName - the name of the original input file
+   @param graph - the graph that contains all vertices and edges
+   @param start - the name of the starting vertex for DFS traversal
+*/
 void Output6(char* fileName, Graph graph, char start[100]) {
     char outputFileName[100];
     strcpy(outputFileName, fileName);
