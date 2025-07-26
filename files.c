@@ -55,21 +55,22 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 		//Obtains the remaining vertices and adds them to the graph
 		for(int i=0; i<graph->numOfVertices; i++) {
 			if(fgets(oneLine, sizeof(oneLine), input) != NULL) {
+				//Deletes new line
+				if(oneLine[strlen(oneLine) - 1] == '\n') {
+					oneLine[strlen(oneLine) - 1] = '\0';
+				}
 				char* vertex = strtok(oneLine, " \t");
 				strcpy(firstVertex, vertex);
 				first = 1;
 				while(vertex != NULL) {
-					if(strcmp(vertex, "-1\n") != 0 && first == 0) {
+					if(strcmp(vertex, "-1") != 0 && first == 0) {
 						addVertex(graph, vertex);
 						updateMatrix(graph, firstVertex, vertex);
-						//strcat(line[ctr], vertex);
-						//strcat(line[ctr], " ");
 					}
 					vertex = strtok(NULL, " \t");
 					first = 0;
 				}
 			}
-			//ctr++;
 		}
 		computeNumOfEdges(graph);
 		flag = 1;
@@ -85,18 +86,20 @@ void Output1(char* fileName, Graph graph) {
 	int ctr = 0;
 	int original;
 	char outputFileName[100];
+	char graphName[100];
 	char sort[MAX_VERTICES][100];
 	strcpy(outputFileName, fileName);
 	int len = strlen(outputFileName);
 	//removes the .TXT
 	outputFileName[len-4] = '\0';
+	strcpy(graphName, outputFileName);
 	strcat(outputFileName, "-SET.txt");
 	FILE* output = fopen(outputFileName, "w");
 	for(int i=0; i<graph.numOfVertices; i++) {
 		strcpy(sort[i], graph.vertices[i]);
 	}
 	sortAlphabetically(graph, sort);
-	fprintf(output, "V(G)={");
+	fprintf(output, "V(%s)={", graphName);
 	for(int i=0; i<graph.numOfVertices; i++) {
 		fprintf(output, "%s", sort[i]);
 		if(i != graph.numOfVertices-1){
@@ -104,7 +107,7 @@ void Output1(char* fileName, Graph graph) {
 		}
 	}
 	fprintf(output, "}\n");
-	fprintf(output, "E(G)={");
+	fprintf(output, "E(%s)={", graphName);
 	for(int i=0; i<graph.numOfVertices; i++) {
 		original = i;
 		i = findVertexID(graph, sort[i]);
@@ -122,7 +125,7 @@ void Output1(char* fileName, Graph graph) {
 				graph.adjacencyMatrix[j][i] = 0;
 				ctr++;
 				//Checks if last edge
-				if(ctr != graph.numOfEdges){
+				if(ctr < graph.numOfEdges){
 					fprintf(output, ",");
 				}
 			}
@@ -331,6 +334,8 @@ void Output7(char* fileName, char* fileName1, char* fileName2, Graph graph1, Gra
 	int ctrVertex = 0;
 	int ctrEdge = 0;
 	char outputFileName[100];
+	char graphName1[100];
+	char graphName2[100];
 	char sort[MAX_VERTICES][100];
 	for(int i=0; i<graph2.numOfVertices; i++) {
 		strcpy(sort[i], graph2.vertices[i]);
@@ -339,10 +344,10 @@ void Output7(char* fileName, char* fileName1, char* fileName2, Graph graph1, Gra
 	strcpy(outputFileName, fileName);
 	int len = strlen(outputFileName);
 	outputFileName[len-4] = '\0';
-	len = strlen(fileName1);
-	fileName1[len-4] = '\0';
+	strcpy(graphName1, fileName1);
 	len = strlen(fileName2);
 	fileName2[len-4] = '\0';
+	strcpy(graphName2, fileName2);
 	strcat(outputFileName, "-SUBGRAPH.txt");
 	FILE* output = fopen(outputFileName, "w");
 	//Check vertices
@@ -371,10 +376,10 @@ void Output7(char* fileName, char* fileName1, char* fileName2, Graph graph1, Gra
 	}
 	
 	if(ctrVertex == graph2.numOfVertices && ctrEdge == graph2.numOfEdges) {
-		fprintf(output, "%s is a subgraph of %s.", fileName2, fileName1);
+		fprintf(output, "%s is a subgraph of %s.", graphName2, graphName1);
 	}
 	else
-		fprintf(output, "%s is not a subgraph of %s.", fileName2, fileName1);
+		fprintf(output, "%s is not a subgraph of %s.", graphName2, graphName1);
 		
 	fclose(output);
 }

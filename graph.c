@@ -90,10 +90,16 @@ int getDegree(Graph graph, char* vertex) {
 */
 void computeNumOfEdges(Graph* graph) {
 	int num=0;
-	for(int i=0; i<graph->numOfVertices; i++) {
-		num += getDegree(*graph, graph->vertices[i]);
+	Graph tempGraph = *graph;
+	
+	for(int i=0; i<tempGraph.numOfVertices; i++) {
+		for(int j=0; j<tempGraph.numOfVertices; j++) {
+			if(tempGraph.adjacencyMatrix[i][j] == 1) {
+				num++;
+				tempGraph.adjacencyMatrix[j][i] = 0;
+			}
+		}
 	}
-	num/=2;
 	graph->numOfEdges = num;
 }
 

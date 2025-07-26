@@ -1,0 +1,6 @@
+Bruce +
+Diana +
+Hal +
+(Bruce,Diana) +
+(Diana,Hal) +
+H is a subgraph of G.
