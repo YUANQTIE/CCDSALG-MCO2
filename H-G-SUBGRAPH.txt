@@ -1,0 +1,9 @@
+Bruce +
+Clark -
+Diana +
+Hal +
+(Bruce,Diana) +
+(Clark,Diana) -
+(Clark,Hal) -
+(Diana,Hal) +
+G is not a subgraph of H.

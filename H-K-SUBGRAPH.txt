@@ -1,0 +1,10 @@
+Bruce +
+Diana +
+Hal +
+Jean -
+(Bruce,Diana) +
+(Bruce,Jean) -
+(Diana,Hal) +
+(Diana,Jean) -
+(Hal,Jean) -
+K is not a subgraph of H.
