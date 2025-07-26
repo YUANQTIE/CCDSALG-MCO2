@@ -1,0 +1,6 @@
+5
+Orange Apple Banana -1
+Banana Apple Orange -1 
+Apple Apricot Banana Orange -1 
+Grapes Apricot -1
+Apricot Apple Grapes -1
