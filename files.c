@@ -188,12 +188,11 @@ void Output3(char* fileName, Graph graph, char line[][1000]) {
 	strcat(outputFileName, "-LIST.txt");
 	FILE* output = fopen(outputFileName, "w");
 	for(int i=0; i<graph.numOfVertices; i++) {
-		printf("%s\n", line[i]);
 		char* vertex = strtok(line[i], " \t");
 		fprintf(output, "%s->", vertex);
 		first = 1;
 		while(vertex!=NULL) {
-			if(strcmp(vertex,"-1a")!= 0 && strcmp(vertex, "-1") && strcmp(vertex, "a") != 0 && first == 0) {
+			if(strcmp(vertex,"-1a")!= 0 && strcmp(vertex, "a") != 0 && first == 0) {
 				fprintf(output, "%s->", vertex);
 			}
 			vertex = strtok(NULL, " \t");
