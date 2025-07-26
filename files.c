@@ -20,7 +20,6 @@ Princess Ayesa A. Tullao, 12412112
 */
 int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 	FILE* input = fopen(fileName, "r");
-	int ctr=0;
 	int temp;
 	int first;
 	char oneLine[1000];
@@ -35,20 +34,21 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 		//Scans the number of vertices
 		fscanf(input, "%d\n", &(graph)->numOfVertices);
 		createGraph(graph, graph->numOfVertices);
+		
+		
 		//Obtains the main vertex of each line and adds it to the graph
 		for(int i=0; i<graph->numOfVertices; i++) {
 			if(fgets(oneLine, sizeof(oneLine), input) != NULL) {
 				//Deletes new line
-				if(i != graph->numOfVertices - 1) {
+				if(oneLine[strlen(oneLine) - 1] == '\n') {
 					oneLine[strlen(oneLine) - 1] = '\0';
 				}
-				strcpy(line[ctr], oneLine);
+				strcpy(line[i], oneLine);
 				char* vertex = strtok(oneLine, " \t");
 				strcpy(firstVertex, vertex);
 				addVertex(graph, firstVertex);
 			}
-			strcat(line[ctr], "a");
-			ctr++;
+			strcat(line[i], "a");
 		}
 		fseek(input, 0, SEEK_SET);
 		fscanf(input, "%d\n", &temp);
