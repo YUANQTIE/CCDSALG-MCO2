@@ -38,10 +38,17 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 		//Obtains the main vertex of each line and adds it to the graph
 		for(int i=0; i<graph->numOfVertices; i++) {
 			if(fgets(oneLine, sizeof(oneLine), input) != NULL) {
+				//Deletes new line
+				if(i != graph->numOfVertices - 1) {
+					oneLine[strlen(oneLine) - 1] = '\0';
+				}
+				strcpy(line[ctr], oneLine);
 				char* vertex = strtok(oneLine, " \t");
 				strcpy(firstVertex, vertex);
 				addVertex(graph, firstVertex);
 			}
+			strcat(line[ctr], "a");
+			ctr++;
 		}
 		fseek(input, 0, SEEK_SET);
 		fscanf(input, "%d\n", &temp);
@@ -49,29 +56,25 @@ int readInputFile(char* fileName, Graph* graph, char line[][1000]) {
 		for(int i=0; i<graph->numOfVertices; i++) {
 			if(fgets(oneLine, sizeof(oneLine), input) != NULL) {
 				char* vertex = strtok(oneLine, " \t");
-				strcat(line[ctr], vertex);
-				strcat(line[ctr], " ");
 				strcpy(firstVertex, vertex);
 				first = 1;
 				while(vertex != NULL) {
 					if(strcmp(vertex, "-1\n") != 0 && first == 0) {
 						addVertex(graph, vertex);
 						updateMatrix(graph, firstVertex, vertex);
-						strcat(line[ctr], vertex);
-						strcat(line[ctr], " ");
+						//strcat(line[ctr], vertex);
+						//strcat(line[ctr], " ");
 					}
 					vertex = strtok(NULL, " \t");
 					first = 0;
 				}
 			}
-			ctr++;
+			//ctr++;
 		}
 		computeNumOfEdges(graph);
 		flag = 1;
 	}
-
 	return flag;
-
 }
 
 /*Function that outputs a file detailing the vertices and edges of the graph
@@ -185,11 +188,12 @@ void Output3(char* fileName, Graph graph, char line[][1000]) {
 	strcat(outputFileName, "-LIST.txt");
 	FILE* output = fopen(outputFileName, "w");
 	for(int i=0; i<graph.numOfVertices; i++) {
+		printf("%s\n", line[i]);
 		char* vertex = strtok(line[i], " \t");
 		fprintf(output, "%s->", vertex);
 		first = 1;
 		while(vertex!=NULL) {
-			if(strcmp(vertex,"-1") != 0 && first == 0) {
+			if(strcmp(vertex,"-1a")!= 0 && strcmp(vertex, "-1") && strcmp(vertex, "a") != 0 && first == 0) {
 				fprintf(output, "%s->", vertex);
 			}
 			vertex = strtok(NULL, " \t");
