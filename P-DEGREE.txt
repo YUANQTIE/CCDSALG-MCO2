@@ -1,0 +1,10 @@
+Anora         4
+Brutalist     2
+Conclave      4
+Dune          2
+Emilia        0
+Here          2
+Nickel        0
+Robot         2
+Sing          0
+Wicked        2

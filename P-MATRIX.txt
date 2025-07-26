@@ -1,0 +1,11 @@
+             Anora   Conclave   Brutalist   Emilia   Wicked   Sing   Nickel   Here   Dune   Robot   
+Anora        0       1          1           0        1        0      0        0      1      0       
+Conclave     1       0          1           0        0        0      0        1      0      1       
+Brutalist    1       1          0           0        0        0      0        0      0      0       
+Emilia       0       0          0           0        0        0      0        0      0      0       
+Wicked       1       0          0           0        0        0      0        0      1      0       
+Sing         0       0          0           0        0        0      0        0      0      0       
+Nickel       0       0          0           0        0        0      0        0      0      0       
+Here         0       1          0           0        0        0      0        0      0      1       
+Dune         1       0          0           0        1        0      0        0      0      0       
+Robot        0       1          0           0        0        0      0        1      0      0       

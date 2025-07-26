@@ -1,0 +1,2 @@
+V(G)={Apple,Apricot,Banana,Grapes,Orange}
+E(G)={(Apple,Orange),(Apple,Banana),(Apple,Apricot),(Apricot,Grapes),(Banana,Orange)}

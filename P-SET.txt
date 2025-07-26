@@ -1,0 +1,2 @@
+V(G)={Anora,Brutalist,Conclave,Dune,Emilia,Here,Nickel,Robot,Sing,Wicked}
+E(G)={(Anora,Conclave),(Anora,Brutalist),(Anora,Wicked),(Anora,Dune),(Brutalist,Conclave),(Conclave,Here),(Conclave,Robot),(Dune,Wicked),(Here,Robot)}

@@ -1,0 +1,6 @@
+          Orange   Banana   Apple   Grapes   Apricot   
+Orange    0        1        1       0        0         
+Banana    1        0        1       0        0         
+Apple     1        1        0       0        1         
+Grapes    0        0        0       0        1         
+Apricot   0        0        1       1        0         

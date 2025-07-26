@@ -1,0 +1,10 @@
+Anora->Brutalist->Conclave->Dune->Wicked->\
+Conclave->Anora->Brutalist->Here->Robot->\
+Brutalist->Anora->Conclave->\
+Emilia->\
+Wicked->Anora->Dune->\
+Sing->\
+Nickel->\
+Here->Conclave->Robot->\
+Dune->Anora->Wicked->\
+Robot->Conclave->Here->\

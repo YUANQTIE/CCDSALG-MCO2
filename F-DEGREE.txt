@@ -1,0 +1,5 @@
+Apple      3
+Apricot    2
+Banana     2
+Grapes     1
+Orange     2
