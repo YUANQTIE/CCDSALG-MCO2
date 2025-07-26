@@ -41,7 +41,7 @@ void sortAdjacentVerticesAndIndices(char names[][100], int indices[], int count)
    @param start - the name of the starting vertex for traversal
    @param bfsvertices - a 2D array to store the order of visited vertices
 */
-void BFS(Graph graph, char start[100], char bfsvertices[][100]){
+void BFS(Graph graph, char start[100], char bfsvertices[][100], int *addedVertices){
     int checkedVertices[graph.numOfVertices];
     char sorted[graph.numOfVertices][100];
     for (int i = 0; i < graph.numOfVertices; i++) 
@@ -66,14 +66,16 @@ void BFS(Graph graph, char start[100], char bfsvertices[][100]){
     { //if all of queue elements have been added to the final BFs list, the loop terminates.
         char* readInput = QueueHead(&queue);
         strcpy(bfsvertices[i], Dequeue(&queue)); //copies the queue element to the final BFS list.
+        (*addedVertices)++;
         i++;
         int readIndex = findVertexID(graph, readInput);
 	    
         for (int j = 0; j < graph.numOfVertices; j++) 
-	{
+	    {
             int connected = findVertexID(graph, sorted[j]); //find the vertex ID of a possibly connected vertex from sorted list.
             if (!checkedVertices[connected] && graph.adjacencyMatrix[readIndex][connected] && !QueueFull(&queue)) //checks if vertex has already added and if the vertex is connected to the vertex at the head of the queue.
-	    {
+	        
+            {
                 checkedVertices[connected] = 1;
                 Enqueue(&queue, sorted[j]);
             }
@@ -86,7 +88,7 @@ void BFS(Graph graph, char start[100], char bfsvertices[][100]){
    @param start - the name of the starting vertex for traversal
    @param dfsvertices - a 2D array to store the order of visited vertices
 */
-void DFS(Graph graph, char start[100], char dfsvertices[][100]) {
+void DFS(Graph graph, char start[100], char dfsvertices[][100], int *addedVertices) {
     int visited[graph.numOfVertices];
     int i = 0;
 	int stack[MAX_VERTICES];
@@ -104,6 +106,7 @@ void DFS(Graph graph, char start[100], char dfsvertices[][100]) {
         if (!visited[current]) {
             visited[current] =1;
             strcpy(dfsvertices[i++], graph.vertices[current]);
+            (*addedVertices)++;
             
             char adjacentVertices[graph.numOfVertices][100];
             int adjacentIndices[graph.numOfVertices]; 
