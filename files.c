@@ -265,17 +265,24 @@ void Output5(char* fileName, Graph graph, char start[100]) {
     char outputFileName[100];
     strcpy(outputFileName, fileName);
     int len = strlen(outputFileName);
+	int addedVertices = 0;
     outputFileName[len-4] = '\0';
     strcat(outputFileName, "-BFS.txt");
     FILE* output = fopen(outputFileName, "w");
 
     char bfsvertices[graph.numOfVertices][100];
-    BFS(graph, start, bfsvertices);
+    BFS(graph, start, bfsvertices, &addedVertices);
 
-    for (int i = 0; i < graph.numOfVertices - 1; i++) {
-        fprintf(output, "%s ", bfsvertices[i]);
-    }
-    fprintf(output, "%s", bfsvertices[graph.numOfVertices - 1]);
+    if (addedVertices > 0){
+		for (int j = 0; j < addedVertices - 1; j++) {
+        	fprintf(output, "%s ", bfsvertices[j]);
+    	}
+		fprintf(output, "%s", bfsvertices[addedVertices - 1]);
+	}
+	else{
+		fprintf(output, "%s ", bfsvertices[addedVertices]);
+	}
+
     fclose(output);
 }
 
@@ -288,18 +295,24 @@ void Output6(char* fileName, Graph graph, char start[100]) {
     char outputFileName[100];
     strcpy(outputFileName, fileName);
     int len = strlen(outputFileName);
+	int addedVertices = 0;
     outputFileName[len - 4] = '\0';
     strcat(outputFileName,"-DFS.txt");
     FILE* output = fopen(outputFileName,"w");
 
     char dfsvertices[graph.numOfVertices][100];
-    DFS(graph, start, dfsvertices);
+    DFS(graph, start, dfsvertices, &addedVertices);
 
-    for (int j = 0; j < graph.numOfVertices - 1; j++) {
-        fprintf(output, "%s ", dfsvertices[j]);
-    }
+	if (addedVertices > 0){
+		for (int j = 0; j < addedVertices - 1; j++) {
+        	fprintf(output, "%s ", dfsvertices[j]);
+    	}
+		fprintf(output, "%s", dfsvertices[addedVertices - 1]);
+	}
+	else{
+		fprintf(output, "%s ", dfsvertices[addedVertices]);
+	}
     
-    fprintf(output, "%s", dfsvertices[graph.numOfVertices - 1]);
     fclose(output);
 }
 
